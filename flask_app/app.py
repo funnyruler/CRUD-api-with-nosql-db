@@ -26,17 +26,20 @@ def add_value():
 
 @app.route('/get_value', methods=['GET'])
 def get_value():
-    request_data = request.get_json()
-    if not request_data:
-        return "You need to pass a key with value which you want to get"
-    find_result = json.loads(json_util.dumps(mongo_db.get_value(request_data)))
-    return find_result
+    key = request.args.get('key')
+    if not key:
+        return "You need to pass a key which value you want to get"
+    find_result = json.loads(json_util.dumps(mongo_db.get_value(key)))
+    if find_result:
+        return find_result
+    else:
+        return "No values by this key"
 
 
 @app.route('/change_value', methods=['PUT'])
 def change_value():
     request_data = request.get_json()
-    if not request_data:
+    if not request_data or len(request_data) != 2:
         return "You need to pass a key with value, which you want to change"
     change_status, change_result = mongo_db.change_value(request_data)
     if change_status:
@@ -47,4 +50,4 @@ def change_value():
 
 if __name__ == '__main__':
     mongo_db.create_collection()
-    app.run(host='0.0.0.0', port=8080, debug=False)
+    app.run(host='0.0.0.0', port=8080, debug=True)

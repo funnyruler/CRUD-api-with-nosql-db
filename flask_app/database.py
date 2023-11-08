@@ -36,18 +36,18 @@ class DataBase:
         except Exception as e:
             return False, str(e)
 
-    def get_value(self, key: dict):
-        cursor = self.collection.find(key)
-        find_result = []
-        for document in cursor:
-            find_result.append(document)
-        return find_result
+    def get_value(self, key: str):
+        documents = self.collection.find({key: {'$exists': True}})
+        result = []
+        for document in documents:
+            result.append(document)
+        return result
 
     def change_value(self, key: dict):
         new_value = key['new_value']
         key_to_change = key['key_to_change']
         change_counter = 0
-        values_with_key = self.get_value({})  # get all values
+        values_with_key = self.get_value(key_to_change)
         try:
             for document in values_with_key:
                 for key in document:
@@ -58,4 +58,5 @@ class DataBase:
                         change_counter += 1
             return True, str(change_counter)
         except Exception as e:
+            # handling unexpected exception
             return False, str(e)
