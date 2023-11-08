@@ -14,7 +14,7 @@ In case of success you will see appropriate message, otherwise - error message.
 to get value by this key, e.g, `/get_value?key=testkey`.
 
 `/change_value` - is a `PUT` route to change existing value by key, you need to pass 
-a key which value you want to change and new value to change, by json in format `{"key_to_change": "key", "new_value": "test1"}`.
+a key which value you want to change and new value to change it, by json in format `{"key_to_change": "key", "new_value": "test1"}`.
 In case of success you will see appropriate message with count of changed values, otherwise - error message.
 # Configuration
 Configuration of flask app in `/flask_app/.env`
