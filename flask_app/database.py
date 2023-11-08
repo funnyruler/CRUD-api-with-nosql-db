@@ -1,8 +1,10 @@
 import os
+from typing import Tuple
+
 import pymongo
 import pymongo.errors as pm_errors
 from dotenv import load_dotenv
-
+from pymongo.results import InsertOneResult
 
 load_dotenv()
 
@@ -29,21 +31,21 @@ class DataBase:
         except pm_errors.CollectionInvalid:  # ignoring exception if collection exists
             pass
 
-    def insert_row(self, data_dict: dict):
+    def insert_row(self, data_dict: dict) -> tuple[bool, InsertOneResult] | tuple[bool, str]:
         try:
             result = self.collection.insert_one(data_dict)
             return True, result
         except Exception as e:
             return False, str(e)
 
-    def get_value(self, key: str):
+    def get_value(self, key: str) -> list:
         documents = self.collection.find({key: {'$exists': True}})
         result = []
         for document in documents:
             result.append(document)
         return result
 
-    def change_value(self, key: dict):
+    def change_value(self, key: dict) -> tuple[bool, str]:
         new_value = key['new_value']
         key_to_change = key['key_to_change']
         change_counter = 0

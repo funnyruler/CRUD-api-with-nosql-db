@@ -2,6 +2,8 @@ import json
 from flask import Flask, request
 from database import DataBase
 from bson import json_util
+from typing import Union
+
 
 mongo_db = DataBase()
 app = Flask(__name__)
@@ -13,7 +15,7 @@ async def index():
 
 
 @app.route('/add_value', methods=['POST'])
-def add_value():
+def add_value() -> str:
     request_data = request.get_json()
     if not request_data:
         return "You need to pass a key with value, which you want to add"
@@ -25,7 +27,7 @@ def add_value():
 
 
 @app.route('/get_value', methods=['GET'])
-def get_value():
+def get_value() -> Union[dict, str]:
     key = request.args.get('key')
     if not key:
         return "You need to pass a key which value you want to get"
@@ -37,7 +39,7 @@ def get_value():
 
 
 @app.route('/change_value', methods=['PUT'])
-def change_value():
+def change_value() -> str:
     request_data = request.get_json()
     if not request_data or len(request_data) != 2:
         return "You need to pass a key with value, which you want to change"
