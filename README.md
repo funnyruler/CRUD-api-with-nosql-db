@@ -38,5 +38,6 @@ Next you need to clone repository, build and run docker image:
 ```
 cd /home/your_folder
 git clone https://github.com/funnyruler/nosql-api.git
+cd nosql-api
 docker-compose up --build
 ```
