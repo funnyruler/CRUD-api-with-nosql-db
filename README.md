@@ -21,7 +21,7 @@ Configuration of flask app in `/flask_app/.env`
 
 By default, mongodb create database with name `testapp_db` and collection with name 
 `testapp_collection` you can change this values in `\docker-entrypoint-initdb.d\mongo-init.js` 
-and `.env` file.
+and `.env` file. In `mongo-init.js` you can pass actions which will do on startup of mongodb.
 # Deploying
 To deploy this app you need to install docker and git:
 ```
