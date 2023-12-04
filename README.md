@@ -1,4 +1,4 @@
-# nosql-api
+# CRUD app with fastapi and mongodb
 Api with nosql database - mongodb.
 # App description
 This app uses docker for deployment. Docker will install and deploy `python3.10`, `mongodb` service.
